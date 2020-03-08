@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -28,14 +29,21 @@ module.exports = {
       },
       {
         test: /\.(sass|scss)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
           use: [
+            // Creates `style` nodes from JS strings
+            'style-loader',
+            // Translates CSS into CommonJS
             'css-loader',
+            // Compiles Sass to CSS
             'sass-loader'
           ]
-        })
-      }
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*$|$)/,
+        use: [
+          'file-loader',
+        ],
+      },
     ]
   },
   plugins: [
@@ -44,7 +52,8 @@ module.exports = {
         filename: "./index.html"
       }),
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('css/mystyles.css')
+    new ExtractTextPlugin('css/mystyles.css'),
+    new Dotenv()
   ],
 devServer: {
    historyApiFallback: true,

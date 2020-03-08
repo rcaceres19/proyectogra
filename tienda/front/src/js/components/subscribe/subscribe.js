@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import firebase from '../../../firebase';
+import "../../../css/components/subscribe/subscribe.scss";
 
 class Subscribe extends Component {    
     constructor(props) {
@@ -8,16 +9,12 @@ class Subscribe extends Component {
 
         console.log(props);
         this.state = {
-            company: {
-                name: "",
+                company: "",
+                rtn: "",
                 email: "",
-                pass: "",
+                faddress: "",
+                saddress: "",
                 tel: "",
-                address: "",
-                country: "",
-                zc: 0,
-                tc: false
-            }
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -25,71 +22,101 @@ class Subscribe extends Component {
     }
 
 
-    handleChange(name, e) {
+    handleChange(e) {
         let val = e.target.value
-        const company = this.state.company;
-        company[name] = val;
-        this.setState({ company: company  })
+        
+        this.setState({
+            ...this.state,
+            [e.target.name] : val 
+        })
     }
     
     handleSubmit() {
-        const fireStore = firebase.firestore();
-        const db = fireStore.collection("test");
+        const userId = firebase.auth().currentUser.uid;
+        const {company, rtn, email, faddress, saddress, tel} = this.state
 
-        db.doc().set({
-            name: this.state.company.name,
-            tel: this.state.company.tel,
-            address: this.state.company.address,
-            country: this.state.company.country,
-            zc: this.state.company.zc,
-            tc: this.state.company.tc
-        }).then(() => {
-            console.log('Data Saved');
-        }).catch((e) => {
-            console.log(e);
-        })
 
-        firebase.database()
-
+        firebase.database().ref('companies/' + userId).set({
+            company: company,
+            rtn: rtn,
+            email: email,
+            faddress: faddress,
+            saddress: saddress,
+            tel: tel
+        });
     }
-
 
 
     render() {
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <section>
-                        <label>Empresa
-                            <input type="text" name="name" onChange={this.handleChange.bind(this, 'name')}></input>
-                        </label>
-                    </section>
-                    <section>
-                        <label>Telefono
-                            <input type="text" name="tel" onChange={this.handleChange.bind(this, 'tel')}></input>
-                        </label>
-                    </section>
-                    <section>
-                        <label>Direccion
-                            <input type="text" name="address" onChange={this.handleChange.bind(this, 'address')}></input>
-                        </label>
-                    </section>
-                    <section>
-                        <label>Pais
-                            <input type="text" name="country" onChange={this.handleChange.bind(this, 'country')}></input>
-                        </label>
-                    </section>
-                    <section>
-                        <label>Codigo Postal
-                            <input type="text" name="zc" onChange={this.handleChange.bind(this, 'zc')}></input>
-                        </label>
-                    </section>
-                    <section>
-                        <input type="checkbox" name="tc"></input>
-                        <label>Acepto los terminos y condiciones</label>
-                    </section>
-                    <input type="submit" value="Submit"/>
-                </form>
+            <div className="container">
+                <article className="panel is-primary">
+                    <p className="panel-heading">
+                        Suscribete como vendedor en City Queen Shop
+                    </p>
+                    <div className="content">
+                        <div className="field">
+                            <label className="label">Empresa</label>
+                            <div className="control has-icons-left">
+                                <input type="text" name="company" className="input" onChange={this.handleChange} />
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">RTN</label>
+                            <div className="control has-icons-left">
+                                <input type="text" name="rtn" className="input" onChange={this.handleChange} />
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-id-card "></i>
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <div className="field">
+                            <label className="label">Email</label>
+                            <div className="control has-icons-left">
+                                <input type="text" name="email" className="input" onChange={this.handleChange} />
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Telefono </label>
+                            <div className="control has-icons-left">
+                                <input type="text" name="tel" className="input" onChange={this.handleChange}></input>
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-phone "></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Direccion #1</label>
+                            <div className="control has-icons-left">
+                                <input type="text" name="faddress" className="input" onChange={this.handleChange}></input>
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-home "></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Direccion #2</label>
+                            <div className="control has-icons-left">
+                                <input type="text" name="saddress" className="input" onChange={this.handleChange}></input>
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-home "></i>
+                                </span>
+                            </div>
+                        </div>
+                        {/* <div className="field">
+                            <input type="checkbox" name="tc"></input>
+                            <label>Acepto los terminos y condiciones</label>
+                        </div> */}
+                        <button className="button is-primary" onClick={this.handleSubmit} value="Submit">Submit</button>
+                    </div>
+                </article>
             </div>
         )
     }

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {render} from 'react-dom';
-import AdminForm from './js/components/form/adminForm';
+import App from './js/app';
 
-
-render ( 
-    <AdminForm />, document.getElementById('root')
+    
+render(
+    <App />, document.getElementById('root')
 );
 
 module.hot.accept();

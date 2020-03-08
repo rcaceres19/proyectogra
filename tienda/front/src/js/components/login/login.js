@@ -8,7 +8,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-
+import '../../../css/components/login/login.scss';
 
 class Login extends Component {
     constructor(props){
@@ -16,7 +16,8 @@ class Login extends Component {
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            users: []
         }
         
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,51 +25,75 @@ class Login extends Component {
         this.passHandler = this.passHandler.bind(this);
     }
 
+    componentDidMount() {
+        firebase.database().ref('users/').once('value', (snapshot) => {
+            this.setState({ users: [...this.state.users, ...[snapshot.val()] ]})
+        });
+    }
+
     emailHandler(e){
         const val = e.target.value;
 
         this.setState({ email: val });
-        console.log(this.state.email);
     }
 
     passHandler(e){
         const val = e.target.value;
 
         this.setState({ password: val });
-        console.log(this.state.password);
     }
 
-    handleSubmit(e){
-        e.preventDefault();
-
-        const {email, password} = this.state;
-        console.log(email, password);
-        firebase.auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((user) => {
-            this.props.history.push('/');
-        })
-        .catch((error) => {
-            console.log(error);
+    handleSubmit(){
+        const {email, password, users} = this.state;
+        
+        users.filter(item => {
+            Object.values(item).map((items) => {
+                if(items.email == email && items.type == "client") {
+                    firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+                        this.props.history.push('/home');
+                    }).catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                    
+                        console.log(errorCode, errorMessage);
+                    })  
+                }
+            }) 
         })
     }
 
     render() {
         return(
-            <div>
-                <form  onSubmit={this.handleSubmit}>
-                    <section>   
-                        <label>Email
-                            <input type="text" onChange={ this.emailHandler } />
-                        </label>
-                    </section>
-                    <section>   
-                        <label>Password
-                            <input type="text" onChange={ this.passHandler } />
-                        </label>
-                    </section>
-                    <input type="submit" value="Submit"/>
-                </form>     
+            <div className="container">
+                <article className="panel is-primary login-form">
+                    <p className="panel-heading">
+                        Login
+                    </p>
+                    <div  className="content">
+                        <div className="field">   
+                            <label className="label">Email</label>
+                            <div className="control has-icons-left">
+                                <input type="text" className="input" placeholder="Example@example.com" onChange={ this.emailHandler } />
+                                <span className="icon is-left">
+                                    <i className="fa fa-envelope"></i>
+                                </span>
+                            </div>                       
+                        </div>
+                        <div className="field">   
+                            <label className="label">Password</label>
+                            <div className="control has-icons-left">
+                                <input type="password" className="input" placeholder="Password" onChange={ this.passHandler } />
+                                <span className="icon is-left">
+                                    <i className="fa fa-lock "></i>
+                                </span>
+                            </div>                        
+                        </div>
+                        
+                        <div className="control">
+                            <button className="button is-primary" onClick={this.handleSubmit} value="Submit">Submit</button>
+                        </div>
+                    </div>
+                </article>     
             </div>
         )
     }

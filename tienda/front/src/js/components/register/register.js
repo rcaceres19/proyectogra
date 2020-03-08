@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import firebase from '../../../firebase';
 import { withRouter } from 'react-router-dom';
+import '../../../css/components/register/register.scss'
+import Swal from 'sweetalert2';
+import uniqid from 'uniqid';
 
 class Register extends Component {
     constructor(props){
@@ -8,7 +11,9 @@ class Register extends Component {
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            type: 'client',
+            users: []
         }
         
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,45 +25,101 @@ class Register extends Component {
         const val = e.target.value;
 
         this.setState({ email: val });
-        console.log(this.state.email);
     }
 
     passHandler(e){
         const val = e.target.value;
 
         this.setState({ password: val });
-        console.log(this.state.password);
     }
 
     handleSubmit(){
-        const {email, password} = this.state;
+        const {email, password, type} = this.state;
         
-        firebase.auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-                this.props.history.push('/');
+        firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+            const userId = firebase.auth().currentUser.uid;
+            firebase.database().ref('users/' + userId).set({
+                email: email,
+                type: type,
+            });
+            Swal.fire({
+                icon: 'success',
+                title: 'Felicidades',
+                text: 'Hemos creado tu cuenta, seras redirigido a la pagina principal',
+                confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
+            })
+            this.props.history.push('/home');
         }).catch((error) => {
-            console.log(error);
-        })
+            const errorCode = error.code;
+            if( errorCode == "auth/email-already-in-use") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario en uso',
+                    text: 'Lamentablemente el email ya ha sido usado',
+                    confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
+                }) 
+            }
+        });
+
+        // firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Felicidades',
+        //         text: 'Hemos creado tu cuenta, seras redirigido a la pagina principal',
+        //         confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
+        //     })
+            
+            
+
+        //     this.props.history.push('/home');
+
+
+        // })
+        // .catch((error) => {
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //     if( errorCode == "auth/email-already-in-use") {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Usuario en uso',
+        //             text: 'Lamentablemente el email ya ha sido usado',
+        //             confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
+        //         }) 
+        //     }
+        // });
     }
 
     render() {
         return(
-            <div>
-                <form  onSubmit={this.handleSubmit}>
-                    <section>   
-                        <label>Email
-                            <input type="text" onChange={ this.emailHandler } />
-                            hola de register
-                        </label>
-                    </section>
-                    <section>   
-                        <label>Password
-                            <input type="text" onChange={ this.passHandler } />
-                        </label>
-                    </section>
-                    <input type="submit" value="Submit"/>
-                </form>
+            <div className="container">
+                <article className="panel is-info register-form">
+                    <p className="panel-heading">
+                        Register
+                    </p>
+                    <div className="content">
+                        <div className="field">   
+                            <label className="label">Email</label>
+                            <div className="control has-icons-left">
+                                <input type="text" className="input" placeholder="Example@example.com" onChange={ this.emailHandler } />
+                                <span className="icon is-left">
+                                    <i className="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">   
+                            <label className="label">Password</label>
+                            <div className="control has-icons-left">
+                                <input type="password" className="input" placeholder="Password" onChange={ this.passHandler } />
+                                <span className="icon is-left">
+                                    <i className="fa fa-lock "></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="control">
+                            <button className="button is-info"  value="Submit"  onClick={this.handleSubmit}>Submit</button>
+                        </div>
+                    </div>
+                </article>
             </div>
         )
     }
