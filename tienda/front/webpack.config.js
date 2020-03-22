@@ -3,6 +3,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 
 module.exports = {
   entry: './src/index.js',
@@ -40,9 +42,10 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*$|$)/,
-        use: [
-          'file-loader',
-        ],
+        loader: 'file-loader',
+        options: {
+          outputPath: 'images',
+        },
       },
     ]
   },
@@ -55,9 +58,28 @@ module.exports = {
     new ExtractTextPlugin('css/mystyles.css'),
     new Dotenv()
   ],
-devServer: {
-   historyApiFallback: true,
-   contentBase: './dist',
-   hot: true
-},
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './dist',
+    hot: true
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin({
+      uglifyOptions: {
+        sourceMap: true,
+        compress: {
+          drop_console: true,
+          conditionals: true,
+          unused: true,
+          comparisons: true,
+          dead_code: true,
+          if_return: true,
+          join_vars: true
+        },
+        output: {
+          comments: false
+        }
+      }
+    })],
+  },
 };

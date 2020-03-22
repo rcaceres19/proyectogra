@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../css/components/card/card.scss'
 
 const Card = (props) => {
   return (
@@ -9,7 +8,7 @@ const Card = (props) => {
           <div className="media">
             <div className="media-left">
               <figure className="image is-48x48">
-                <img src={props.logo} alt="Placeholder image" />
+                <img src={props.logo} alt="image" />
               </figure>
             </div>
             <div className="media-content">
@@ -21,7 +20,7 @@ const Card = (props) => {
             {props.desc}
             <br />
           </div>
-          <div class="contact-info">
+          <div className="contact-info">
             <hr />
             <div>
               <label>Tel: </label><a href={`tel:+${props.tel}`} >{props.tel}</a>

@@ -6,15 +6,15 @@ import {
     Link
 } from "react-router-dom";
 import Home from '../../components/home/home';
-import Subscribe from '../../components/subscribe/subscribe';
 import Login from '../../components/login/login';
 import Register from '../../components/register/register';
 import Logout from '../../components/logout/logout';
-import Card from '../../components/card/card';
+import Poducts from '../../components/products/products';
 import ProtectedRoutes from '../../helpers/protectedRoutes';
 import '../../../css/components/bar/bar.scss'
 import logo from '../../../assets/images/logo.png';
 import Companies from '../../components/companies/companies';
+import Cart from '../../components/cart/cart'
 
 class Bar extends Component{
     constructor(props){
@@ -54,11 +54,15 @@ class Bar extends Component{
                                 <div id="navbarBasicExample" className={`navbar-menu ${isVisible ? "is-active" : "hidden"}`}>
                                     <div className="navbar-start">
                                         <Link className="navbar-item" to="/home">Home</Link>
-                                        <Link className="navbar-item" to="/subscribe">Seller</Link>
-                                        <Link className="navbar-item" to="/companies">Companies</Link>
-                                        <Link className="navbar-item" to="/products">Products</Link>
+                                        <Link className="navbar-item" to="/companies">Compañias</Link>
+                                        <Link className="navbar-item" to="/products">Productos</Link>
                                     </div>
-                                    <div className="navbar-end">                                       
+                                    <div className="navbar-end"> 
+                                        <Link className="navbar-item" to="/cart">
+                                            <button className="shopping-button button is-link">
+                                                <i className="fa fa-shopping-cart" />
+                                            </button>
+                                        </Link>                                      
                                         <Logout />
                                     </div>
                                 </div>
@@ -69,10 +73,10 @@ class Bar extends Component{
                                     </div>
                                     <div className="navbar-end">
                                         <Link className="navbar-item is-primary" to="/login">
-                                            <button className="button is-primary log-button">Login</button>
+                                            <button className="button is-primary log-button">Acceder</button>
                                         </Link>
                                         <Link className="navbar-item" to="/register">
-                                            <button className="button is-primary log-button">Register</button>
+                                            <button className="button is-primary log-button">Registrar</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -85,9 +89,11 @@ class Bar extends Component{
                         <Route authenticated={this.props.authenticated} path="/login" component={Login} />
                         <Route path="/register" component={Register} />
                         
-                        <ProtectedRoutes component={Subscribe} path="/subscribe" authenticated={this.props.authenticated} />
+                        <ProtectedRoutes component={Poducts} path="/products" authenticated={this.props.authenticated} />
                         <ProtectedRoutes component={Companies} path="/companies" authenticated={this.props.authenticated} />
                         {/* <ProtectedRoutes component={Products} path="/companies" authenticated={this.props.authenticated} /> */}
+                        <ProtectedRoutes component={Cart} path="/cart" authenticated={this.props.authenticated} />
+                        
 
                     </Switch>
                 </Router>
