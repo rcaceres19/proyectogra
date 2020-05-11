@@ -3,7 +3,6 @@ import firebase from '../../../firebase';
 import { withRouter } from 'react-router-dom';
 import '../../../css/components/register/register.scss'
 import Swal from 'sweetalert2';
-import uniqid from 'uniqid';
 
 class Register extends Component {
     constructor(props){
@@ -41,6 +40,7 @@ class Register extends Component {
             firebase.database().ref('users/' + userId).set({
                 email: email,
                 type: type,
+                cart: []
             });
             Swal.fire({
                 icon: 'success',
@@ -48,7 +48,7 @@ class Register extends Component {
                 text: 'Hemos creado tu cuenta, seras redirigido a la pagina principal',
                 confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
             })
-            this.props.history.push('/home');
+            this.props.history.push('/');
         }).catch((error) => {
             const errorCode = error.code;
             if( errorCode == "auth/email-already-in-use") {

@@ -49,9 +49,9 @@ class Products extends Component {
 
     render() {
         
-        const {products} = this.state;
         return(
             <div className="container">
+                <p className="products-title title is-1">Productos</p>
                 {
                    this.buildProducts()
                 }

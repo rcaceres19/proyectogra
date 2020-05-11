@@ -102,10 +102,16 @@ class AddProduct extends Component{
                                     <div className="control">
                                         <div className="select">
                                             <select name="cat" onChange={this.handleChange}>
-                                                <option value="ropa">Ropa</option>
-                                                <option value="electronica">Electronica</option>
-                                                <option value="comida">Comida</option>
-                                                <option value="electrodomesticos">Electrodomesticos</option>
+                                                
+                                                <option value="cuidadop">Cuidado Personal</option>
+                                                <option value="deporte">Deporte</option>
+                                                <option value="electrodomesticos">Electrodomésticos</option>
+                                                <option value="escolar">Escolar y Oficina</option>
+                                                <option value="electronica">Electrónica</option>
+                                                <option value="hogar">Hogar</option>
+                                                <option value="ropa">Ropa y Accesorios</option>
+                                                <option value="mundob">Mundo del Bebé</option>
+                        
                                             </select>   
                                         </div>
                                     </div>            

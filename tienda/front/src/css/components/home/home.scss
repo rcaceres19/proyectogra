@@ -1,0 +1,34 @@
+.hello-view {
+    .carousel-item {
+        .image-item {
+            height: 30rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            &.adidas {
+                background-image: url('../../../assets/images/home/adidasBlancos.jpg'); 
+                
+            }
+            &.camisa-hombre {
+                background-image: url('../../../assets/images/home/camisaHombre.jpg');
+                
+            }
+            &.pantalon-mujer {
+                background-image: url('../../../assets/images/home/pantalonMujer.jpg');
+                
+            }
+            &.iphone-11 {
+                background-image: url('../../../assets/images/home/iphone11.jpg');
+            }
+            &.samsung-phone {
+                background-image: url('../../../assets/images/home/samsung10.jpg');
+            }
+            &.beats {
+                background-image: url('../../../assets/images/home/beats.jpg');
+            }
+        }
+    }
+    .featured-container {
+        margin-top: 2rem;
+    }
+}

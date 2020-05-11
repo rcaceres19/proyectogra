@@ -2,12 +2,12 @@ $screen-md-min: 768px;
 $screen-lg-min: 1024px;
 
 .card-container {
-    display: inline-block;
     margin: 2rem 1.3rem;
     vertical-align: top;
 
     @media (min-width: $screen-md-min) {
         width: 44%;
+        display: inline-block;
     }
 
     @media(min-width: $screen-lg-min) {
@@ -37,12 +37,30 @@ $screen-lg-min: 1024px;
             color: black;
             display: inline-block;
         }
+        label {
+            font-weight: bold;
+            color: #232f3e;
+        }
+    }
+    .buy-section {
+        
+        margin-top: 2rem;
+        .buy-lbl {
+            font-weight: bold;
+        }
+        .qty-section{
+            padding: 15px;
+            display: inline-block;
+            .qty-lbl{
+                vertical-align: middle;
+            }
+        }
     }
     .add-toCart-btn{
         margin-top: 1rem;
+        margin-left:3rem
     }
     hr {
         margin: .5rem 0;
     }
-    
 }

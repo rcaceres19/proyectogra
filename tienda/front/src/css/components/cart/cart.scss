@@ -1,0 +1,34 @@
+
+.cart-view {
+    border: 2px solid gray;
+    .list-items {
+        width: 100%;
+    }
+    .total-section {
+        padding: 2rem; 
+        
+        .item {
+            margin: 2rem 0;
+            .total-lbl {
+                font-weight: bold;
+                color: orange;
+                vertical-align: middle;
+            }
+            .total-input { 
+                width:50%;
+                float: right;
+            }
+        }
+    }
+    @media(min-width: 767px) {
+        .list-items { 
+            width: 70%;
+            display: inline-block
+        }
+        .total-section{
+            vertical-align: top;
+            width: 30%;
+            display: inline-block;
+        }
+    }
+}

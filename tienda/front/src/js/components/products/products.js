@@ -17,6 +17,7 @@ class Products extends Component {
     componentDidMount() {
     firebase.database().ref('products/').once('value', (snapshot) => {
             this.setState({ products: [snapshot.val()] })
+            
         })
     }
 
@@ -26,21 +27,39 @@ class Products extends Component {
         
         let result  = products.map((items) => {
             let dataArray = Object.values(items).map((item,index) => {
-                for(let data in item){
+                let lastResult =  Object.values(item).map((items,index) => {
                     return(
-                            <div className="card-container prod-container">
+                        <div className="card-container prod-container">
                             <CardProduct 
-                                name={item[data].name} 
-                                category={item[data].cat} 
-                                description={item[data].desc}
-                                outStock={item[data].outStock}
-                                price={item[data].price} 
-                                stock={item[data].stock}
-                                images={item[data].images[0]}
+                                name={items.name}
+                                id={items.id}
+                                category={items.cat} 
+                                description={items.desc}
+                                outStock={items.outStock}
+                                price={items.price} 
+                                stock={items.stock}
+                                images={items.images[0]}
                             />
-                            </div>     
-                    )
-                }
+                        </div>
+                    ) 
+                })
+                return lastResult
+
+                // for(let data in item){
+                //     return(
+                //             <div className="card-container prod-container">
+                //             <CardProduct 
+                //                 name={item[data].name} 
+                //                 category={item[data].cat} 
+                //                 description={item[data].desc}
+                //                 outStock={item[data].outStock}
+                //                 price={item[data].price} 
+                //                 stock={item[data].stock}
+                //                 images={item[data].images[0]}
+                //             />
+                //             </div>     
+                //     )
+                // }
             })
             
             return dataArray;

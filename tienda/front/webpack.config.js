@@ -7,7 +7,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ["babel-polyfill", './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/main.js'
@@ -30,7 +30,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(sass|scss)$/,
+        test: /\.(css|sass|scss)$/,
           use: [
             // Creates `style` nodes from JS strings
             'style-loader',

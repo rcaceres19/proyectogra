@@ -1,0 +1,25 @@
+.confirmation-vw{
+    .purchase-id{
+        color: #01b200;
+    }
+    .confirmation-div{
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 2rem;
+        .confirmationIMG{
+            height: 10rem;
+            margin: 0 auto;
+        }
+    }
+    .text-confirmation{
+        margin-top: 2rem;
+        .warning-text {
+            color: red;
+            font-weight: bold;
+            margin: 0 0 2rem 0;
+        }
+    }
+    .bought-details{
+        margin-top: 2rem;
+    }
+}

@@ -1,0 +1,55 @@
+@import '../helpers/mixins.scss';
+
+.h2.h3.h4.h5.h6 {
+    color: white;
+}
+
+.footer-view {
+    height: 100%;
+    background-color: #232f3e;
+    color: white;
+    .links-container{
+        border-bottom: 1px solid white;
+        .item-container {
+            
+            padding: 2rem;
+            vertical-align: top;
+            a{
+                color: white;
+                display: block;
+                line-height: 2;
+            }
+            a:hover {
+                color: #42c9d4;
+            }
+            .detail{
+                i {
+                    font-size: 2.5rem;
+                    display: inline-block;
+                }
+                label {
+                    font-size: 1.6rem;
+                    display: inline;
+                }
+            }
+        }
+    }
+    .footer-ending{
+        text-align: center;
+        position: relative;
+        padding: 1rem;
+    }
+
+
+    @media(min-width: 768px){
+        .item-container {
+            width: 33%;
+            display: inline-block;
+            .detail{
+                &.links {
+                    float: right;
+                }
+            }
+        }
+    }
+}

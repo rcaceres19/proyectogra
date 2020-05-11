@@ -1,0 +1,29 @@
+@import '~bulma/sass/utilities/initial-variables';
+
+// Small devices
+@mixin sm {
+    @media (min-width: #{$gap}) {
+        @content;
+    }
+ }
+ 
+ // Medium devices
+ @mixin md {
+    @media (min-width: #{$tablet}) {
+        @content;
+    }
+ }
+ 
+ // Large devices
+ @mixin lg {
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+ }
+ 
+ // Extra large devices
+ @mixin xl {
+    @media (min-width: #{$widescreen}) {
+        @content;
+    }
+ }

@@ -5,4 +5,9 @@
 @import '~font-awesome/scss/_variables.scss';
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome.scss';
-@import 'bulma/bulma.sass';
+@import "../../node_modules/bulma/bulma.sass";
+
+body{
+    height: 100%;
+}
+

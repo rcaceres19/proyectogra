@@ -39,14 +39,13 @@ class Subscribe extends Component {
         
         const { email, password } = this.state
 
-
         firebase.auth().createUserWithEmailAndPassword(email, password).then((users) => {
+            
             Swal.fire({
                 icon: 'success',
                 title: 'Felicidades',
                 text: 'Hemos creado tu cuenta, seras redirigido a la pagina principal',
                 confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
-
             })
             this.addToDatabase(users)
             this.props.history.push('/home');

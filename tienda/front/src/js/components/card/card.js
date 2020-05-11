@@ -28,7 +28,6 @@ const Card = (props) => {
             <div>
               <label>Email: </label><a href={`mailto:${props.email}`}>{props.email}</a>
             </div>
-
           </div>
         </div>
       </div>
