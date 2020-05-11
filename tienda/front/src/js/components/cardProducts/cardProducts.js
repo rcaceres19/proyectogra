@@ -7,7 +7,11 @@ class cardProduct extends Component {
 
     this.state = {
       data: props,
-      selectedProd: []
+      selectedProd: {
+        data: props,
+        pagado:false,
+        qty:"1"
+      }
     }
     this.getSelectValue = this.getSelectValue.bind(this);
     this.buildQTY = this.buildQTY.bind(this);
@@ -43,7 +47,7 @@ class cardProduct extends Component {
     this.setState({selectedProd: data});
   } 
 
-  addToCart() {
+  async addToCart() {
     const userId = firebase.auth().currentUser.uid;
     let {selectedProd, data} = this.state;
     
@@ -51,14 +55,16 @@ class cardProduct extends Component {
       data,
       qty: "1",
       pagado: false
-    }
+    };
+
+    console.log('selectedProduct', selectedProd);
 
     this.setState({selectedProd: data});
     
     firebase.database().ref('/users/'+userId+'/cart').push(
       selectedProd,
       err => console.log(err ? 'error while pushing to DB' : 'succesful push')
-    )
+    );
     
   }
 
@@ -112,7 +118,7 @@ class cardProduct extends Component {
                   </select>
                 </div>
               </div>
-              <button className="button is-primary add-toCart-btn" onClick={this.addToCart}>Agregar</button>
+              <button className="button is-primary add-toCart-btn" onClick={ () => this.addToCart()}>Agregar</button>
             </div>
           </div>
         </div>
