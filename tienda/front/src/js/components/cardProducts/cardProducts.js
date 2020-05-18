@@ -65,7 +65,6 @@ class cardProduct extends Component {
   //     qty: "1",
   //     pagado: false
   //   };
-
   //   console.log('selectedProduct', selectedProd);
 
   //   this.setState({selectedProd: data});
@@ -73,8 +72,7 @@ class cardProduct extends Component {
   //   firebase.database().ref('/users/'+userId+'/cart').push(
   //     selectedProd,
   //     err => console.log(err ? 'error while pushing to DB' : 'succesful push')
-  //   );
-    
+  //   );    
   // }
 
   sendToProduct() { 
@@ -133,8 +131,8 @@ class cardProduct extends Component {
                 </div>
               </div> */}
               {/* <button className="button is-primary add-toCart-btn" onClick={ () => this.addToCart()}>Ver producto</button> */}
-              
-              <button className="button is-primary add-toCart-btn" onClick={ () => this.sendToProduct()}>Ver producto</button>
+      
+              <button className="button is-primary add-toCart-btn" onClick={ () => this.addToCart()}>Agregar</button>
             </div>
           </div>
         </div>
