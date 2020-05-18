@@ -1,0 +1,19 @@
+$screen-md-min: 768px;
+$screen-lg-min: 1024px;
+
+.product-vw {
+    margin-top: 2rem !important;
+    .product-img {
+        @media(min-width: $screen-lg-min) {
+            width: 40%;
+            display: inline-block;
+            margin-right: 2rem;
+        }
+    }
+    .product-name-rating-info {
+        @media(min-width: $screen-lg-min) {
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+}

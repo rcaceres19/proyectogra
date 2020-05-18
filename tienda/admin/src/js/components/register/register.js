@@ -18,11 +18,13 @@ class Subscribe extends Component {
                 faddress: "",
                 saddress: "",
                 tel: "",
-                type: 'company'
+                type: 'company',
+                images: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.uploadImage = this.uploadImage.bind(this);
     }
 
 
@@ -32,6 +34,23 @@ class Subscribe extends Component {
         this.setState({
             ...this.state,
             [e.target.name] : val 
+        })
+    }
+
+    uploadImage(e) {
+        const file = e.target.files[0];
+        const storageRef = firebase.storage().ref();
+        const url = `images/companies/${file.name}`;
+        const uploadTask = storageRef.child(url);
+        
+        uploadTask.put(file)
+        storageRef.child(url).getDownloadURL().then((url) => {
+            let {images} = this.state;
+            
+            images = url;
+
+            this.setState({images})
+            console.log(images)
         })
     }
     
@@ -47,7 +66,7 @@ class Subscribe extends Component {
                 text: 'Hemos creado tu cuenta, seras redirigido a la pagina principal',
                 confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
             })
-            this.addToDatabase(users)
+            this.addToDatabase()
             this.props.history.push('/home');
         }).catch((error) => {
             const errorCode = error.code;
@@ -60,6 +79,7 @@ class Subscribe extends Component {
                     confirmButtonText: '<a class="fa fa-thumbs-up"></a> Genial!',
                 }) 
             }
+            console.log(error)
         }) 
         
     }
@@ -67,7 +87,7 @@ class Subscribe extends Component {
 
     addToDatabase() {
         const users = firebase.auth().currentUser.uid;
-        const {company, rtn, email, faddress, saddress, tel, type} = this.state
+        const {company, rtn, email, faddress, saddress, tel, type, images} = this.state
         
         firebase.database().ref('companies/' + users).set({
             company: company,
@@ -75,7 +95,8 @@ class Subscribe extends Component {
             email: email,
             faddress: faddress,
             saddress: saddress,
-            tel: tel
+            tel: tel,
+            images: images
         });
 
         firebase.database().ref('users/' + users).set({
@@ -94,18 +115,18 @@ class Subscribe extends Component {
                     </p>
                     <div className="content">
                         <div className="field">
-                            <label className="label">Empresa</label>
+                            <label className="label">Empresa<small>*</small></label>
                             <div className="control has-icons-left">
-                                <input type="text" name="company" className="input" onChange={this.handleChange} />
+                                <input type="text" name="company" className="input" onChange={this.handleChange} required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-user"></i>
                                 </span>
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">RTN</label>
+                            <label className="label">RTN<small>*</small></label>
                             <div className="control has-icons-left">
-                                <input type="text" name="rtn" className="input" onChange={this.handleChange} />
+                                <input type="text" name="rtn" className="input" onChange={this.handleChange} required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-id-card "></i>
                                 </span>
@@ -113,27 +134,28 @@ class Subscribe extends Component {
                             
                         </div>
                         <div className="field">
-                            <label className="label">Email</label>
+                            <label className="label">Email<small>*</small></label>
                             <div className="control has-icons-left">
-                                <input type="text" name="email" className="input" onChange={this.handleChange} />
+                                <input type="text" name="email" className="input" onChange={this.handleChange}  required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-envelope"></i>
                                 </span>
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Password</label>
+                            <label className="label">Password<small>*</small></label>
                             <div className="control has-icons-left">
-                                <input type="password" name="password" className="input" onChange={this.handleChange} />
+                                <input type="password" name="password" className="input" onChange={this.handleChange} required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-key"></i>
                                 </span>
+                                <small>NOTA*: Ingrese al menos 6 caracteres</small>
                             </div>
                         </div>
                         <div className="field">
-                            <label className="label">Telefono </label>
+                            <label className="label">Telefono<small>*</small></label>
                             <div className="control has-icons-left">
-                                <input type="text" name="tel" className="input" onChange={this.handleChange}></input>
+                                <input type="text" name="tel" className="input" onChange={this.handleChange} required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-phone "></i>
                                 </span>
@@ -142,7 +164,7 @@ class Subscribe extends Component {
                         <div className="field">
                             <label className="label">Direccion #1</label>
                             <div className="control has-icons-left">
-                                <input type="text" name="faddress" className="input" onChange={this.handleChange}></input>
+                                <input type="text" name="faddress" className="input" onChange={this.handleChange} />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-home "></i>
                                 </span>
@@ -151,16 +173,31 @@ class Subscribe extends Component {
                         <div className="field">
                             <label className="label">Direccion #2</label>
                             <div className="control has-icons-left">
-                                <input type="text" name="saddress" className="input" onChange={this.handleChange}></input>
+                                <input type="text" name="saddress" className="input" onChange={this.handleChange} />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-home "></i>
                                 </span>
                             </div>
                         </div>
-                        {/* <div className="field">
-                            <input type="checkbox" name="tc"></input>
-                            <label>Acepto los terminos y condiciones</label>
-                        </div> */}
+                        <div className="level">
+                            <div className="level-item">
+                                <div className="field">
+                                    <div className="file is-primary">
+                                        <label className="file-label">
+                                        <input className="file-input" name="imagenes" type="file" onChange={this.uploadImage} required />
+                                            <span className="file-cta">
+                                                <span className="file-icon">
+                                                <i className="fa fa-upload"></i>
+                                                </span>
+                                                <span className="file-label">
+                                                    Elija archivos *
+                                                </span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button className="button is-primary" onClick={this.handleSubmit} value="Submit">Submit</button>
                     </div>
                 </article>

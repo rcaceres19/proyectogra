@@ -9,70 +9,71 @@ class Confirmation extends Component {
 
         this.state = {
             cartProducts: this.props.location.state.cartProducts,
-            everyProduct: this.props.location.state.everyProduct,
             purchaseDetails: this.props.location.state.purchaseDetail,
             boughtHistory: [],
             doneRender: false
         }
     }
     
-    handleCopy = () => {
+    // handleCopy = () => {
 
-        let { cartProducts } = this.state
-        const userId = firebase.auth().currentUser.uid;
+    //     let { cartProducts } = this.state
+    //     const userId = firebase.auth().currentUser.uid;
 
-        Object.values(cartProducts).map((items) => {
-            for(let counter in items) {
-                items[counter].pagado = true
-            }
-        })
+    //     Object.values(cartProducts).map((items) => {
+    //         for(let counter in items) {
+    //             items[counter].pagado = true
+    //         }
+    //     })
         
-        firebase.database().ref('/users/'+userId+'/boughtHistory/').push(
-            cartProducts,
-            err => console.log(err ? 'error while pushings to DB' : 'succesful push')
-        )
+    //     firebase.database().ref('/users/'+userId+'/boughtHistory/').push(
+    //         cartProducts,
+    //         err => console.log(err ? 'error while pushings to DB' : 'succesful push')
+    //     )
 
-    }
+    // }
 
-    handleErase = () => {
-        const userId = firebase.auth().currentUser.uid;
-        firebase.database().ref('/users/'+userId+'/cart/').remove()
-    }
+    // handleErase = () => {
+    //     const userId = firebase.auth().currentUser.uid;
+    //     firebase.database().ref('/users/'+userId+'/cart/').remove()
+    // }
 
-    handleUpdate = () => {
-        let { everyProduct, cartProducts } = this.state;
-        let updateWho = [];
-        let everyProductCopy = [];
-        let cartProductsCopy = [];
-        let userKey = []
+    // handleUpdate = () => {
+    //     let { everyProduct, cartProducts } = this.state;
+    //     let updateWho = [];
+    //     let everyProductCopy = [];
+    //     let cartProductsCopy = [];
+    //     let userKey = []
         
-        Object.values(everyProduct).map((productItems) => {
-            userKey = Object.keys(productItems);
-            Object.values(productItems).map((items) => {
-                Object.values(cartProducts).map((cartItems) => {
-                    for(let counter in items){ 
-                        for(let counterr in cartItems) {
-                            console.log(items[counter].id == cartItems[counterr].data.id);
-                            if(items[counter].id == cartItems[counterr].data.id) {
-                                items[counter].stock = items[counter].stock - cartItems[counterr].qty;
-                            }
-                        }
-                    }
-                })
-            })
-            firebase.database().ref('products/').update(
-                productItems
-            )
-        });
+    //     Object.values(everyProduct).map((productItems) => {
+    //         userKey = Object.keys(productItems);
+    //         Object.values(productItems).map((items) => {
+    //             Object.values(cartProducts).map((cartItems) => {
+    //                 for(let counter in items){ 
+    //                     for(let counterr in cartItems) {
+    //                         console.log(items[counter].id == cartItems[counterr].data.id);
+    //                         if(items[counter].id == cartItems[counterr].data.id) {
+    //                             items[counter].stock = items[counter].stock - cartItems[counterr].qty;
+    //                         }
+    //                     }
+    //                 }
+    //             })
+    //         })
+    //         firebase.database().ref('products/').update(
+    //             productItems
+    //         )
+    //     });
         
-    }
+    // }
 
     render() {
-        const { purchaseDetails } = this.state;
+        const { purchaseDetails, cartProducts } = this.state;
         console.log(purchaseDetails)
+        console.log(cartProducts)
         return(
             <div className="confirmation-vw container">
-                <div className="confirmation-div">
+            Hello from confirmation
+                {/* <div className="confirmation-div">
                     <img src={confirmationIMG} className="confirmationIMG" />
                     <h2 className="title is-2">Felicidades {purchaseDetails.payer.name.given_name} {purchaseDetails.payer.name.surname}</h2>
                     <div className="confirmation-id">
@@ -95,7 +96,7 @@ class Confirmation extends Component {
                     this.handleCopy(),
                     this.handleUpdate(),
                     this.handleErase()
-                }
+                } */}
             </div>
 
            

@@ -1,17 +1,48 @@
 $screen-md-min: 768px;
 $screen-lg-min: 1024px;
 
+
+
+.sidebar-filter {
+    width: 20%;
+    display: inline-block;
+    height: 100%;
+}
+
+.cards-component {
+    display: inline-block;
+    width: 75%;
+
+    @media (max-width: $screen-md-min) {
+        width:  100%;
+        display: auto;
+    }
+}
 .card-container {
-    margin: 2rem 1.3rem;
+    .card{
+        box-shadow: 0 0 0 0;
+        border: 1px solid #e8e8e8;
+        .image {
+            width: 90%;
+            margin: 0 auto;
+        }
+    
+    }
+    margin: 1rem auto;
     vertical-align: top;
+    @media (max-width: $screen-md-min) {
+        width:  50%;
+        display: inline-block;
+    }
 
     @media (min-width: $screen-md-min) {
-        width: 44%;
+        width: 50%;
         display: inline-block;
     }
 
     @media(min-width: $screen-lg-min) {
-        width: 29%
+        width: 23.5%;
+        margin: 1rem .5rem;
     }
 
     .contact-info {
@@ -20,12 +51,12 @@ $screen-lg-min: 1024px;
     
 }
 
-.card-container:hover{
-    -webkit-box-shadow: 0px 0px 15px -6px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 15px -6px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 15px -6px rgba(0,0,0,0.75);
-    transition: all .5s;
-}
+// .card-container:hover{
+//     -webkit-box-shadow: 0px 0px 15px -6px rgba(0,0,0,0.75);
+//     -moz-box-shadow: 0px 0px 15px -6px rgba(0,0,0,0.75);
+//     box-shadow: 0px 0px 15px -6px rgba(0,0,0,0.75);
+//     transition: all .5s;
+// }
 
 .prod-container{
     .product-info {
@@ -41,9 +72,15 @@ $screen-lg-min: 1024px;
             font-weight: bold;
             color: #232f3e;
         }
+        .product-cost{
+            p {
+                font-size: large;
+                color: #ce1c4e;
+            }
+        }
     }
     .buy-section {
-        
+        text-align: center;
         margin-top: 2rem;
         .buy-lbl {
             font-weight: bold;
@@ -55,12 +92,36 @@ $screen-lg-min: 1024px;
                 vertical-align: middle;
             }
         }
+        
     }
     .add-toCart-btn{
-        margin-top: 1rem;
-        margin-left:3rem
+        margin: 1rem auto;
+        width: 90%;
     }
     hr {
         margin: .5rem 0;
+    }
+}
+
+
+.card-containerCompany {
+    display: inline-block;
+
+    @media (min-width: $screen-md-min) {
+        width: 44%;
+        display: inline-block;
+    }
+
+    @media(min-width: $screen-lg-min) {
+        width: 25%
+    }
+    .card-company {
+        border: 1px solid #e8e8e8;
+        margin: 1rem .5rem;   
+        .media-content {
+            .button {
+                margin: 0;
+            }
+        }
     }
 }

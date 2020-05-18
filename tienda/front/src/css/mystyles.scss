@@ -9,5 +9,10 @@ $fa-font-path: "~font-awesome/fonts";
 
 body{
     height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hidden-sidebar {
+    position: fixed;
 }
 

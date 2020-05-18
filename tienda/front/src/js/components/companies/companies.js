@@ -24,7 +24,7 @@ class Companies extends Component {
         let result = companies.map((items) => {
             let dataArray = Object.values(items).map((item, index) => {
                 return (
-                    <div className="card-container">
+                    <div className="card-containerCompany">
                         <Card key={index} company={item.company} email={item.email} tel={item.tel} desc={item.desc} logo={item.logo} />
                     </div>
                 )

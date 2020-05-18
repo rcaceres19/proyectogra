@@ -9,18 +9,19 @@ class Products extends Component {
         super(props);
 
         this.state = { 
-            products: []
+            products: [],
+            WindowSize: 0
         }
         this.buildProducts = this.buildProducts.bind(this);
+        this.getWindowWidth = this.getWindowWidth.bind(this);
     }
 
-    componentDidMount() {
-    firebase.database().ref('products/').once('value', (snapshot) => {
+    async componentDidMount() {
+        await firebase.database().ref('products/').once('value', (snapshot) => {
             this.setState({ products: [snapshot.val()] })
-            
         })
+        window.addEventListener('resize', this.getWindowWidth());
     }
-
     
     buildProducts() {
         const {products} = this.state;
@@ -38,28 +39,12 @@ class Products extends Component {
                                 outStock={items.outStock}
                                 price={items.price} 
                                 stock={items.stock}
-                                images={items.images[0]}
+                                images={items.images}
                             />
                         </div>
                     ) 
                 })
                 return lastResult
-
-                // for(let data in item){
-                //     return(
-                //             <div className="card-container prod-container">
-                //             <CardProduct 
-                //                 name={item[data].name} 
-                //                 category={item[data].cat} 
-                //                 description={item[data].desc}
-                //                 outStock={item[data].outStock}
-                //                 price={item[data].price} 
-                //                 stock={item[data].stock}
-                //                 images={item[data].images[0]}
-                //             />
-                //             </div>     
-                //     )
-                // }
             })
             
             return dataArray;
@@ -67,14 +52,33 @@ class Products extends Component {
 
         return result;
     }
+
+    getWindowWidth(WindowSize , event) {
+        this.setState({ WindowSize: window.innerWidth })    
+    }
     
 
     render() {
+
+        const {WindowSize} = this.state;
         return(
             <div className="container is-fluid">
-                {
-                    this.buildProducts()
+                { WindowSize > 768 ?
+                <div className="sidebar-filter">
+                    <div className="filter-item">
+                        <ul>
+                            <li value="">Electrodomesticos</li>
+                        </ul>
+                    </div>
+                </div>
+                :
+                ""
                 }
+                <div className="cards-component">
+                    {
+                        this.buildProducts()
+                    }
+                </div>
             </div>
         )
     }

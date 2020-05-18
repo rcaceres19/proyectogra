@@ -1,0 +1,36 @@
+$screen-md-min: 768px;
+$screen-lg-min: 1024px;
+
+.carousel-vw {
+    .slider-img-container {
+        .slider-img{
+            height: 20rem;
+            margin: 0 auto;
+            @media(min-width: $screen-md-min) {
+                height: 30rem;
+                width: 70%;
+            }
+            @media(min-width: $screen-lg-min) {
+                height: 35rem;
+                width: 100%;
+            }
+        }
+    }
+    .slides {
+        position: relative;
+        .slick-prev, .slick-next {
+            z-index: 1;
+            position: absolute;
+            top: 50%;
+            &:before {
+                color: #d3d3d3;    
+            }
+        }
+        .slick-prev {
+            left: 5%;
+        }
+        .slick-next {
+            right: 5%;
+        }
+      }
+}
