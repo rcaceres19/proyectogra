@@ -1,62 +1,60 @@
-@import '../helpers/mixins.scss';
-@import '~bulma/sass/utilities/derived-variables';
-@import '~bulma/sass/utilities/mixins';
 
-.bar-view {
-    min-height: 40rem;
-    .navbar{
-        background-color: #232f3e;
-        color: white !important;
+
+// .bar-view {
+//     min-height: 40rem;
+//     .navbar{
+//         background-color: #232f3e;
+//         color: white !important;
         
-        .navbar-item {
-            color: white;
-        }
-        .navbar-brand {
-            height: 6rem;
-        }
-        .navbar-burger{
-            height: auto;
-            color: white;
-        }
-        .navbar-menu {
-            background-color: #232f3e;
-        }
-    }
-    .log-button{
-        width: 6rem;
-    }
-    .logo-png {
-        width: 9rem;
-        max-height: 4rem;
-    }
-    .shopping-button {
-        height: 100%;
-        width: 4rem;   
-    }
+//         .navbar-item {
+//             color: white;
+//         }
+//         .navbar-brand {
+//             height: 6rem;
+//         }
+//         .navbar-burger{
+//             height: auto;
+//             color: white;
+//         }
+//         .navbar-menu {
+//             background-color: #232f3e;
+//         }
+//     }
+//     .log-button{
+//         width: 6rem;
+//     }
+//     .logo-png {
+//         width: 9rem;
+//         max-height: 4rem;
+//     }
+//     .shopping-button {
+//         height: 100%;
+//         width: 4rem;   
+//     }
 
-    .filter-container{
-        .input-control{
-            input {
-                width: 25rem;
-            }
-        }
-        .category-select{
-            transition: width .5s;
-        }
-    }
-}
+//     .filter-container{
+//         .input-control{
+//             input {
+//                 width: 25rem;
+//             }
+//         }
+//         .category-select{
+//             transition: width .5s;
+//         }
+//     }
+// }
 
-@media (min-width: 767px) {
-    .bar-view {
-        min-height: 43.2rem;
-        .navbar-brand {
-            height: 4rem !important;
-        }
-    }
-}
+// @media (min-width: 767px) {
+//     .bar-view {
+//         min-height: 43.2rem;
+//         .navbar-brand {
+//             height: 4rem !important;
+//         }
+//     }
+// }
 
-@media (min-width: 1024px) {
-    .bar-view {
-        min-height: 30.9rem;
-    }
-}
+// @media (min-width: 1024px) {
+//     .bar-view {
+//         min-height: 30.9rem;
+//     }
+// }

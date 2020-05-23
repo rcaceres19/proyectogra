@@ -1,50 +1,53 @@
 import React from 'react'
 
 import '../../css/components/footer/footer.scss';
+import info from '../../assets/images/technology.svg';
+import location from '../../assets/images/gps.svg';
+import phone from '../../assets/images/phone.svg';
 
  const Footer = () => {
+     const footerIconWidth = 30;
     return (
-        <div className="footer-view">
-            <div className="container is-fluid links-container">
-                <div className="contactInfo item-container">
-                    <div className="detail">
-                        <i className="fa fa-phone" />
-                        <label> Telefonos</label>
-                        <div>
-                            <a>+(504)31200032</a>
-                            <label>Oficinas</label>
-                            <a>+(504)22054812</a>
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <div className="row">
+                    <div className="columns">
+                        <div className="column">
+                            <img src={phone} width={footerIconWidth} />
+                            <h4 className="title is-4 has-text-white">Tel&eacute;fonos</h4>
+                            <ul>
+                                <li><a className="has-text-white" href="tel:+504 31200032">+(504)31200032</a></li>
+                                <li><label htmlFor=""><b>Oficinas:</b></label></li>
+                                <li><a className="has-text-white" href="tel:+504 31200032">+(504)31200032</a></li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-                <div className="location item-container">
-                    <div className="detail">
-                        <i className="fa fa-home" />
-                        <label> Direccion</label>
-                        <div>
+                        <div className="column">
+                            <img src={location} width={footerIconWidth} />
+                            <h4 className="title is-4 has-text-white">Direcci&oacute;n</h4>
                             <p>San Pedro Sula: Barrio San Fernando, <br />1ra calle entre 11-12 avenida N.E. Autopista hacia el Aeropuerto Internacional Ramon Villeda Morales.</p>
                         </div>
+                        <div className="column">
+                            <img src={info} width={footerIconWidth} />
+                            <h4 className="title is-4 has-text-white">Informaci&oacute;n</h4>
+                            <ul>
+                                <li><a className="has-text-white" href="">Nosotros</a></li>
+                                <li><a className="has-text-white" href="">Terminos y Condiciones</a></li>
+                                <li><a className="has-text-white" href="">Preguntas Frecuentes </a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div className="linkInterest item-container">
-                    <div className="detail links">
-                        <div>
-                            <i className="fa fa-info-circle" />
-                            <label> Informacion</label>
-                            <div>
-                                <a>Acerca de nosotros</a>
-                                <a>Terminos y condiciones</a>
-                                <a>FAQS</a>
-                            </div>
+                <div className="row">
+                    <div className="columns is-centered">
+                        <div className="column is-three-quarters">
+                            <hr/>
+                            <p>Hecho por Reina Caceres💖</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="container footer-ending">
-                <p><b>Hecho por Reina Caceres💖</b></p>
-            </div>
-        </div>
-    )
+        </footer>
+    );
 }
 
 

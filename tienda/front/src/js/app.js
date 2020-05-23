@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import firebase from '../firebase';
 import Bar from './header/bar/bar';
+
 import '../css/mystyles.scss';
 import Footer from './footer/footer';
-import Sidebar from './components/sidebar/sidebar';
 
 class App extends Component {
     constructor(props){
@@ -28,11 +28,7 @@ class App extends Component {
     render() {
         return(
             <div className="app-view">
-                
                 <Bar authenticated={this.state.authenticated} />
-                {/* <div id="menu-sidebar">
-                    <Sidebar />
-                </div> */}
                 <Footer />
             </div>
         )

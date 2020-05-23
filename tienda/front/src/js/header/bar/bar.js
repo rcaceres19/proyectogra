@@ -16,7 +16,7 @@ import Companies from '../../components/companies/companies';
 import Cart from '../../components/cart/cart';
 import Confirmation from '../../components/confirmation/confirmation';
 import Product from '../../components/product/product';
-import Sidebar from '../../components/sidebar/sidebar';
+import SearchBar from '../../components/searchbar';
 
 import '../../../css/components/bar/bar.scss'
 import Products from '../../components/products/products';
@@ -66,124 +66,53 @@ class Bar extends Component{
         const value = e.target.value;
         const length = value.length;
         const newWidth = `${(8*length)+80}px`
-        
         this.setState({newWidth})
-        
     }
 
-    
     render() {
         const {isVisible, newWidth, WindowSize, isVisibleSidebar} = this.state;
         
         return(
-            <div className="bar-view ">
-                <Router>                
-                    <nav className="navbar" role="navigation" aria-label="main navigation">
-                    
+            <Router>
+                <nav className="navbar" role="navigation" aria-label="main navigation">
                     <div className="navbar-brand">
-                        {/* <a role="button" onClick={this.toogleMenuSidebar} className="navbar-burger burger active" aria-label="menu" aria-expanded="false" data-target="menu-sidebar">
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                        </a> */}
-                        <a className="navbar-item" href="/">
-                            <img src={logo} className="logo-png" />
+                        <a className="navbar-item" href="https://bulma.io">
+                            <img src={logo} />
                         </a>
-                        <a role="button" onClick={this.toogleMenu} className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
-                            <span aria-hidden="true"></span>
+                        <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                            <span aria-hidden="true"/>
+                            <span aria-hidden="true"/>
+                            <span aria-hidden="true"/>
                         </a>
                     </div>
-                        { this.props.authenticated ?                    
-                            <div id="navbarBasicExample" className={`navbar-menu ${isVisible ? "is-active" : "hidden"}`}>
-                                <div className="navbar-start">
-                                    <Link className="navbar-item" to="/">Home</Link>
-                                    <Link className="navbar-item" to="/companies">Compañias</Link>
-                                    <Link className="navbar-item" to="/products">Productos</Link>
-                                    {
-                                    WindowSize > 1024 ? 
-                                        <div className="filter-container navbar-item">
-                                            <div className="field has-addons has-addons-right">
-                                                <div className="control">
-                                                    <div className="select select-container">
-                                                        <select 
-                                                        style={{width: newWidth}}
-                                                        className="category-select" 
-                                                        onChange={this.updateWidth}>
-                                                            <option hidden={true}>Buscar en...</option>
-                                                            <option value="cuidado personal">Cuidado Personal</option>
-                                                            <option value="deporte">Deporte</option>
-                                                            <option value="electrodomesticos">Electrodomésticos</option>
-                                                            <option value="escolar y oficinas">Escolar y Oficina</option>
-                                                            <option value="electronica">Electrónica</option>
-                                                            <option value="hogar">Hogar</option>
-                                                            <option value="ropa y accesorios">Ropa y Accesorios</option>
-                                                            <option value="mundo del bebe">Mundo del Bebé</option>
-
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <p className="control input-control">
-                                                    <input className="input" type="text" placeholder="Amount of money" />
-                                                </p>
-                                                <p className="control">
-                                                    <a className="button is-primary">
-                                                        <i className="fa fa-search"></i>
-                                                    </a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    :
-                                        ""
-                                    }
-                                </div>
-                                <div className="navbar-end"> 
-                                    <Link className="navbar-item" to="/cart">
-                                        <button className="shopping-button button is-link">
-                                            <i className="fa fa-shopping-cart" />
-                                        </button>
-                                    </Link>                                      
-                                    <Logout />
-                                </div>
-                            </div>
-                        :
-                            <div id="navbarBasicExample" className={`navbar-menu ${isVisible ? "is-active" : "hidden"}`}>
-                                <div className="navbar-start">
-                                    
-                                    <Link className="navbar-item" to="/">Home</Link>
-                                    <Link className="navbar-item" to="/companies">Compañias</Link>
-                                    <Link className="navbar-item" to="/products">Productos</Link>
-                                </div>
-                                <div className="navbar-end">
-                                    <Link className="navbar-item is-primary" to="/login">
-                                        <button className="button is-primary log-button">Acceder</button>
-                                    </Link>
-                                    <Link className="navbar-item" to="/register">
-                                        <button className="button is-primary log-button">Registrar</button>
-                                    </Link>
-                                </div>
-                            </div>    
-                        } 
-
-                        {/* <div id="menu-sidebar" className={`sidebar-menu ${isVisibleSidebar ? "is-active" : "hidden"}`}>
-
-                        </div> */}
-                    </nav>
-                        
-                    <Switch>
-                        <Route exact path="/"  component={Home} />
-                        <Route authenticated={this.props.authenticated} path="/login" component={Login} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/products"  component={Poducts} />
-                        <Route path="/companies" component={Companies} />
-                        <Route path="/product" component={Product} authenticated={this.props.authenticated}/>
-                        {/* <ProtectedRoutes component={Products} path="/companies" authenticated={this.props.authenticated} /> */}
-                        <ProtectedRoutes component={Confirmation} path="/confirmation" authenticated={this.props.authenticated} />
-                        <ProtectedRoutes component={Cart} path="/cart" authenticated={this.props.authenticated} />
-                    </Switch>
-                </Router>
-            </div>
+                    <div class="navbar-menu">
+                        <div class="navbar-start">
+                            <a class="navbar-item"><b>Inicio</b></a>
+                            <a class="navbar-item"><b>Registrate</b></a>
+                            <a class="navbar-item"><b>Afiliados</b></a>
+                        </div>
+                    </div>
+                    <div className="navbar-end">
+                        <Link className="navbar-item is-link is-small" to="/cart"><i className="fa fa-shopping-cart" /></Link>     
+                        <Link className="navbar-item is-link is-small" to="/login">
+                            <span className="icon"><i className="fa fa-sign-in"/></span><b>Inicia Sesion</b>
+                        </Link>                                  
+                        <Logout auth={this.props.authenticated}/>
+                    </div>
+                </nav>
+                <SearchBar />
+                <Switch>
+                    <Route exact path="/"  component={Home} />
+                    <Route authenticated={this.props.authenticated} path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
+                    <Route path="/products"  component={Poducts} />
+                    <Route path="/companies" component={Companies} />
+                    <Route path="/product" component={Product} authenticated={true}/>
+                    {/* <ProtectedRoutes component={Products} path="/companies" authenticated={this.props.authenticated} /> */}
+                    <ProtectedRoutes component={Confirmation} path="/confirmation" authenticated={this.props.authenticated} />
+                    <ProtectedRoutes component={Cart} path="/cart" authenticated={this.props.authenticated} />
+                </Switch>
+            </Router>
         )
     }
 }
